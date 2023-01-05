@@ -1,5 +1,14 @@
 # username : pi
 # pass     : raspberry136
+
+# SDA connects to Pin 24.
+# SCK connects to Pin 23.
+# MOSI connects to Pin 19.
+# MISO connects to Pin 21.
+# GND connects to Pin 6.
+# RST connects to Pin 22.
+# 3.3v connects to Pin 1.
+
 import RPi.GPIO as io
 from mfrc522 import SimpleMFRC522
 from gpiozero import Button
@@ -91,9 +100,10 @@ while True:
         time.sleep(0.1)
         io.output(bLed, 1)
         if (myCard == "507554571747" or myCard == "585515753935" or myCard == "584186363956"):
-            myCard = "B8EFD03D-C2EC-4559-C43B-08D9FFF4FD00"
+            myCard = "584186425306"
 
         payload = {
+            "PointId": "001",
             "CardId": myCard
         }
         print("HTTP Request")
