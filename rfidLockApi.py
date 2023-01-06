@@ -1,11 +1,14 @@
 # username : pi
 # pass     : raspberry136
 import RPi.GPIO as io
+import paho.mqtt.client as mqtt
 from mfrc522 import SimpleMFRC522
 from gpiozero import Button
 import requests
 import json
 import time
+
+client = mqtt.Client()
 
 io.setmode(io.BCM)
 io.setwarnings(False)
@@ -122,6 +125,9 @@ while True:
             io.output(lock, 0)
             time.sleep(timeLock)
             io.output(lock, 1)
+            client.connect("broker.hivemq.com", 1883, 60)
+            client.publish("amarta136/doorlock", "Hello, World!")
+            client.disconnect()
         else:
             print("Access Decline")
             io.output(rLed, 0)
