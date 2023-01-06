@@ -10,11 +10,17 @@
 # 3.3v connects to Pin 1.
 
 import RPi.GPIO as io
+import paho.mqtt.client as mqtt
 from mfrc522 import SimpleMFRC522
 from gpiozero import Button
 import requests
 import json
 import time
+
+client = mqtt.Client()
+client.connect("broker.hivemq.com", 1883, 60)
+client.publish("amarta136/doorlock", "Hello, World!")
+client.disconnect()
 
 io.setmode(io.BCM)
 io.setwarnings(False)
